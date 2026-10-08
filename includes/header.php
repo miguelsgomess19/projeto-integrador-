@@ -12,8 +12,6 @@ $logado = isset($_SESSION['id']);
             <a href="/projeto_integrador/app/create.php">Cadastrar</a>
             <a href="/projeto_integrador/app/produtos.php">Produtos</a>
             <a href="/projeto_integrador/app/delete.php">Excluir</a>
-            <a href="/projeto_integrador/app/select.php">Relatório</a>
-            <a href="/projeto_integrador/app/select_w.php">Consultar</a>
             <a href="/projeto_integrador/app/update.php">Atualizar</a>
         </div>
         <?php if ($logado): ?>
