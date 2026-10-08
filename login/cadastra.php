@@ -11,21 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         set_flash('error', 'Informe um e-mail válido.');
-        redirecionar('cadastra.php');
+        redirecionar('/projeto_integrador/login/cadastra.php');
     }
 
     if (strlen($senha) < 6) {
         set_flash('error', 'A senha precisa ter no mínimo 6 caracteres.');
-        redirecionar('cadastra.php');
+        redirecionar('/projeto_integrador/login/cadastra.php');
     }
 
     try {
         cadastrar_user($conexao, $email, $senha);
         set_flash('success', 'Usuário cadastrado com sucesso! Faça login.');
-        redirecionar('login.php');
+        redirecionar('/projeto_integrador/login/login.php');
     } catch (PDOException $e) {
         set_flash('error', 'Não foi possível cadastrar. E-mail já existe?');
-        redirecionar('cadastra.php');
+        redirecionar('/projeto_integrador/login/cadastra.php');
     }
 }
 ?>

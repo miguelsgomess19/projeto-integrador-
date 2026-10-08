@@ -12,6 +12,5 @@ try {
     );
 } catch (PDOException $e) {
     $conexao = null;
-    echo "Erro de conexao: " . $e->getMessage();
+        echo "Erro de conexao: " . $e->getMessage();
 }
-?>

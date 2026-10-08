@@ -13,18 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $senhaValida = false;
     if ($usuario) {
-        $senhaValida = password_verify($senha, $usuario['senha'])
-            || hash_equals($usuario['senha'], $senha);
+        $senhaValida = password_verify($senha, $usuario['senha']);
     }
 
     if ($usuario && $senhaValida) {
         session_regenerate_id(true);
         $_SESSION['id'] = $usuario['id'];
         set_flash('success', 'Usuário logado!');
-        redirecionar('../index.php');
+        redirecionar('/projeto_integrador/index.php');
     } else {
         set_flash('error', 'Usuário ou senha inválido.');
-        redirecionar('login.php');
+        redirecionar('/projeto_integrador/login/login.php');
     }
 }
 ?>

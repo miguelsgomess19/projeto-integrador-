@@ -24,70 +24,29 @@ function redirecionar($caminho)
     exit;
 }
 
-function cadastrar_bizarro($conexao, $nome, $email, $senha)
+function excluir_produto($conexao, $id)
 {
-    $sql = "INSERT INTO bizarros(nome, email, senha) VALUES (:nome, :email, :senha)";
+    $produto = consultar_produto($conexao, $id);
 
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindValue(':nome', trim($nome), PDO::PARAM_STR);
-    $stmt->bindValue(':email', trim($email), PDO::PARAM_STR);
-    $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
-    $stmt->execute();
-
-    return $conexao->lastInsertId();
-}
-
-function consultar_bizarro($conexao, $id)
-{
-    $sql = "SELECT id, nome, email FROM bizarros WHERE id = :id";
-
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindValue(':id', (int) $id, PDO::PARAM_INT);
-    $stmt->execute();
-
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-function listar_bizarros($conexao)
-{
-    $sql = "SELECT id, nome, email FROM bizarros ORDER BY nome";
-
-    $stmt = $conexao->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function atualizar_bizarro($conexao, $id, $nome, $email, $senha)
-{
-    $sql = "UPDATE bizarros SET nome = :nome, email = :email";
-    if ($senha !== '') {
-        $sql .= ", senha = :senha";
-    }
-    $sql .= " WHERE id = :id";
-
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindValue(':id', (int) $id, PDO::PARAM_INT);
-    $stmt->bindValue(':nome', trim($nome), PDO::PARAM_STR);
-    $stmt->bindValue(':email', trim($email), PDO::PARAM_STR);
-    if ($senha !== '') {
-        $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
+    if (!$produto) {
+        return ['ok' => false, 'erro' => 'Produto não encontrado.'];
     }
 
-    $stmt->execute();
-
-    return $stmt->rowCount();
-}
-
-function excluir_bizarro($conexao, $id)
-{
-    $sql = "DELETE FROM bizarros WHERE id = :id";
-
-    $stmt = $conexao->prepare($sql);
+    $stmt = $conexao->prepare("DELETE FROM produtos WHERE id = :id");
     $stmt->bindValue(':id', (int) $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    return $stmt->rowCount();
+    if ($stmt->rowCount() === 0) {
+        return ['ok' => false, 'erro' => 'Não foi possível excluir o produto.'];
+    }
+
+    $imagem = __DIR__ . '/../uploads/' . $produto['imagem'];
+
+    if ($produto['imagem'] !== '' && is_file($imagem)) {
+        @unlink($imagem);
+    }
+
+    return ['ok' => true, 'produto' => $produto];
 }
 
 function cadastrar_produto($conexao, $nome, $estoque, $preco, $imagem)

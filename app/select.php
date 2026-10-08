@@ -1,37 +1,38 @@
-<?php require_once __DIR__ . '/../login/verifica_user.php';?>
+<?php
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../login/verifica_user.php';
 
+$stmt = $conexao->query("SELECT id, nome, nasc, turma, ativo FROM alunos ORDER BY nome");
+$alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/projeto_integrador/style/style.css">
-    <title>Relatório</title>
+    <title>Relatório de Alunos</title>
 </head>
-
 <body>
-    <?php include __DIR__ . '/../includes/header.php'?>
+    <?php include __DIR__ . '/../includes/header.php'; ?>
     <main>
-        <div style="width: 50%; margin:auto; text-align:center; border:lpx solid black; border-radius:5px;">
-    <?php 
-require_once "../database/connect.php";
+        <h1>Relatório de Alunos</h1>
 
-$sql = "SELECT * FROM alunos";
-
-$stmt = $conexao->prepare($sql);
-$stmt->execute();
-
-$bizarros = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-foreach($bizarros as $bizarro){
-    echo "ID: {$bizarro['id']}<br>";
-    echo "Nome: {$bizarro['nome']}<br>";
-    echo "Nascimento: {$bizarro['nasc']}<br>";
-    echo "Turma: {$bizarro['turma']}<br>";
-    echo "Ativo: {$bizarro['ativo']}<br>";
-    echo "<hr>";
-}
-?>
-<?php include __DIR__ . '/../includes/footer.php'?>
+        <?php if (empty($alunos)): ?>
+            <p class="text-center">Nenhum aluno cadastrado ainda.</p>
+        <?php else: ?>
+            <div class="record-list">
+                <?php foreach ($alunos as $aluno): ?>
+                    <strong>ID:</strong> <?= (int) $aluno['id'] ?><br>
+                    <strong>Nome:</strong> <?= htmlspecialchars($aluno['nome']) ?><br>
+                    <strong>Nascimento:</strong> <?= htmlspecialchars($aluno['nasc'] ?? '-') ?><br>
+                    <strong>Turma:</strong> <?= htmlspecialchars($aluno['turma']) ?><br>
+                    <strong>Ativo:</strong> <?= !empty($aluno['ativo']) ? 'Sim' : 'Não' ?>
+                    <hr>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </main>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>

@@ -8,5 +8,4 @@ $_SESSION = array();
 session_destroy();
 
 header("Location: /projeto_integrador/index.php");
-
-?>
+exit;
