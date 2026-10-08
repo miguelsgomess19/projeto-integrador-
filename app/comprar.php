@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../login/verifica_user.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirecionar('/projeto_integrador/app/produtos.php');
+    redirecionar('/clubhawkings/app/produtos.php');
 }
 
 $id = (int) ($_POST['id'] ?? 0);
@@ -11,7 +11,7 @@ $quantidade = (int) ($_POST['quantidade'] ?? 1);
 
 if ($id <= 0) {
     set_flash('error', 'Produto inválido.');
-    redirecionar('/projeto_integrador/app/produtos.php');
+    redirecionar('/clubhawkings/app/produtos.php');
 }
 
 $resultado = comprar_produto($conexao, $id, $quantidade);
@@ -23,4 +23,4 @@ if (!$resultado['ok']) {
     set_flash('success', "Compra realizada! $quantidade x $nome.");
 }
 
-redirecionar('/projeto_integrador/app/produtos.php');
+redirecionar('/clubhawkings/app/produtos.php');

@@ -10,7 +10,7 @@ $flash = get_flash();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/projeto_integrador/style/style.css">
+    <link rel="stylesheet" href="/clubhawkings/style/style.css">
     <title>Produtos</title>
 </head>
 <body>
@@ -31,13 +31,13 @@ $flash = get_flash();
                 <?php foreach ($produtos as $produto): ?>
                     <article class="card">
                         <img class="produto-img"
-                             src="/projeto_integrador/uploads/<?= htmlspecialchars($produto['imagem']) ?>"
+                             src="/clubhawkings/uploads/<?= htmlspecialchars($produto['imagem']) ?>"
                              alt="<?= htmlspecialchars($produto['nome']) ?>">
                         <h3><?= htmlspecialchars($produto['nome']) ?></h3>
                         <p>Preço: R$ <?= number_format((float) ($produto['preco'] ?? 0), 2, ',', '.') ?></p>
                         <p>Estoque: <?= (int) $produto['estoque'] ?></p>
                         <?php if ((int) $produto['estoque'] > 0): ?>
-                            <form action="/projeto_integrador/app/comprar.php" method="POST">
+                            <form action="/clubhawkings/app/comprar.php" method="POST">
                                 <input type="hidden" name="id" value="<?= (int) $produto['id'] ?>">
                                 <input type="hidden" name="quantidade" value="1">
                                 <button type="submit">Comprar</button>

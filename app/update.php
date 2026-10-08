@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             atualizar_produto($conexao, $id, $nome, $estoque, $preco);
             set_flash('success', 'Produto atualizado com sucesso!');
-            redirecionar('/projeto_integrador/app/produtos.php');
+            redirecionar('/clubhawkings/app/produtos.php');
         }
     }
 }
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/projeto_integrador/style/style.css">
+    <link rel="stylesheet" href="/clubhawkings/style/style.css">
     <title>Atualizar Produto</title>
 </head>
 <body>
@@ -74,12 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="senha_admin" id="senha_admin" placeholder="Insira a senha." required>
 
                 <button type="submit">Entrar</button>
-                <a class="btn btn--ghost" href="/projeto_integrador/app/produtos.php">Voltar</a>
+                <a class="btn btn--ghost" href="/clubhawkings/app/produtos.php">Voltar</a>
             </form>
         <?php elseif (empty($produtos)): ?>
             <h1>Atualizar Produto</h1>
             <p class="text-center">Nenhum produto cadastrado ainda.</p>
-            <a class="btn btn--ghost" href="/projeto_integrador/app/create.php">Cadastrar produto</a>
+            <a class="btn btn--ghost" href="/clubhawkings/app/create.php">Cadastrar produto</a>
         <?php else: ?>
             <h1>Atualizar Produto</h1>
 
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" id="preco" name="preco" placeholder="Preço do produto" min="0" step="0.01">
 
                 <button type="submit">Atualizar</button>
-                <a class="btn btn--ghost" href="/projeto_integrador/app/produtos.php">Voltar</a>
+                <a class="btn btn--ghost" href="/clubhawkings/app/produtos.php">Voltar</a>
             </form>
         <?php endif; ?>
     </main>

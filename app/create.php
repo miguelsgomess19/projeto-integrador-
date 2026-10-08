@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     redimensionar_imagem($destino);
                     cadastrar_produto($conexao, $nome, $estoque, $preco, $arquivo);
                     set_flash('success', 'Produto cadastrado com sucesso!');
-                    redirecionar('/projeto_integrador/app/produtos.php');
+                    redirecionar('/clubhawkings/app/produtos.php');
                 } else {
                     $erro = 'Não foi possível salvar a imagem.';
                 }
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/projeto_integrador/style/style.css">
+    <link rel="stylesheet" href="/clubhawkings/style/style.css">
     <title>Cadastro de Produto</title>
 </head>
 <body>
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="senha_admin" id="senha_admin" placeholder="Insira a senha." required>
 
                 <button type="submit">Entrar</button>
-                <a class="btn btn--ghost" href="/projeto_integrador/app/produtos.php">Voltar</a>
+                <a class="btn btn--ghost" href="/clubhawkings/app/produtos.php">Voltar</a>
             </form>
         <?php else: ?>
             <h1>Cadastro de Produto</h1>

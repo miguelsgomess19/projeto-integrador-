@@ -8,16 +8,16 @@ $logado = isset($_SESSION['id']);
 <header>
     <nav>
         <div>
-            <a href="/projeto_integrador/index.php">Inicio</a>
-            <a href="/projeto_integrador/app/create.php">Cadastrar</a>
-            <a href="/projeto_integrador/app/produtos.php">Produtos</a>
-            <a href="/projeto_integrador/app/delete.php">Excluir</a>
-            <a href="/projeto_integrador/app/update.php">Atualizar</a>
+            <a href="/clubhawkings/index.php">Inicio</a>
+            <a href="/clubhawkings/app/create.php">Cadastrar</a>
+            <a href="/clubhawkings/app/produtos.php">Produtos</a>
+            <a href="/clubhawkings/app/delete.php">Excluir</a>
+            <a href="/clubhawkings/app/update.php">Atualizar</a>
         </div>
         <?php if ($logado): ?>
-            <a class="botao-sair" href="/projeto_integrador/login/logout.php">Sair</a>
+            <a class="botao-sair" href="/clubhawkings/login/logout.php">Sair</a>
         <?php else: ?>
-            <a class="botao-sair" href="/projeto_integrador/login/login.php">Entrar</a>
+            <a class="botao-sair" href="/clubhawkings/login/login.php">Entrar</a>
         <?php endif; ?>
     </nav>
 </header>

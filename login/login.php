@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_regenerate_id(true);
         $_SESSION['id'] = $usuario['id'];
         set_flash('success', 'Usuário logado!');
-        redirecionar('/projeto_integrador/index.php');
+        redirecionar('/clubhawkings/index.php');
     } else {
         set_flash('error', 'Usuário ou senha inválido.');
-        redirecionar('/projeto_integrador/login/login.php');
+        redirecionar('/clubhawkings/login/login.php');
     }
 }
 ?>
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/projeto_integrador/style/style.css">
+    <link rel="stylesheet" href="/clubhawkings/style/style.css">
     <title>Login</title>
 </head>
 <body>

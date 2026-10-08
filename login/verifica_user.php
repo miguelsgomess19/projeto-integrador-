@@ -5,6 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['id'])) {
-    header('Location: /projeto_integrador/login/login.php');
+    header('Location: /clubhawkings/login/login.php');
     exit;
 }
