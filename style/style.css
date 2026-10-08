@@ -1,0 +1,1686 @@
+/* =========================================================
+   CLUB HAWKINGS
+   Stranger Things — Uma loja. Dois mundos.
+   Design system + componentes
+   ---------------------------------------------------------
+   01. Tokens
+   02. Reset & base
+   03. Fundos em camadas
+   04. Tipografia
+   05. Layout / shell
+   06. Cabeçalho e navegação
+   07. Hero e títulos
+   08. Cartões e painéis
+   09. Botões
+   10. Formulários
+   11. Tabelas e registros
+   12. Rodapé
+   13. Animações
+   14. Utilitários
+   15. Responsividade
+   16. Acessibilidade e impressão
+   ========================================================= */
+
+
+/* =========================================================
+   01. TOKENS
+   ========================================================= */
+
+:root {
+    /* ---- cor da marca ---- */
+    --blood-red: #b30000;
+    --neon-red: #ff1a1a;
+    --dark-red: #680000;
+
+    /* ---- fundos ---- */
+    --dark-void: #050608;
+    --upside-down-blue: #081521;
+
+    /* ---- superfícies ---- */
+    --surface-1: rgba(255, 255, 255, 0.045);
+    --surface-2: rgba(255, 255, 255, 0.08);
+    --surface-3: rgba(255, 255, 255, 0.12);
+
+    --panel-bg: linear-gradient(
+        145deg,
+        rgba(22, 22, 25, 0.94),
+        rgba(8, 11, 16, 0.90)
+    );
+
+    --panel-bg-strong: linear-gradient(
+        145deg,
+        rgba(28, 28, 32, 0.96),
+        rgba(10, 13, 19, 0.94)
+    );
+
+    /* ---- texto ---- */
+    --text-light: #f4f4f5;
+    --text-gray: #b8b8bf;
+    --text-dim: #8b8b93;
+
+    /* ---- bordas ---- */
+    --border-dark: rgba(255, 255, 255, 0.10);
+    --border-mid: rgba(255, 255, 255, 0.16);
+    --border-strong: rgba(255, 255, 255, 0.26);
+    --border-red: rgba(255, 60, 60, 0.42);
+
+    /* ---- tipografia ---- */
+    --font-display: Georgia, "Times New Roman", "Playfair Display", serif;
+    --font-body: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Cascadia Code", Consolas, "Courier New", monospace;
+
+    /* ---- escala fluida de títulos ---- */
+    --fs-display: clamp(2.6rem, 7vw, 5.5rem);
+    --fs-h1: clamp(2rem, 5vw, 3.25rem);
+    --fs-h2: clamp(1.4rem, 3.2vw, 2.15rem);
+    --fs-h3: clamp(1.1rem, 2.2vw, 1.4rem);
+    --fs-body: clamp(0.95rem, 1.05vw, 1.03rem);
+    --fs-small: 0.875rem;
+    --fs-micro: 0.75rem;
+
+    /* ---- espaçamento ---- */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 48px;
+    --sp-8: 64px;
+
+    /* ---- raios ---- */
+    --r-xs: 6px;
+    --r-sm: 10px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-pill: 999px;
+
+    /* ---- sombras ---- */
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 14px 38px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+
+    --glow-soft: 0 0 0 1px rgba(255, 26, 26, 0.28), 0 8px 28px rgba(255, 0, 0, 0.16);
+    --glow-strong: 0 0 14px rgba(255, 26, 26, 0.55), 0 0 34px rgba(255, 0, 0, 0.28);
+
+    --text-glow: 0 0 6px rgba(255, 255, 255, 0.35), 0 0 16px rgba(255, 26, 26, 0.55);
+
+    /* ---- movimento ---- */
+    --t-fast: 150ms;
+    --t-base: 260ms;
+    --t-slow: 500ms;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ---- layout ---- */
+    --container: 1120px;
+    --container-narrow: 880px;
+    --form-width: 580px;
+
+    /* ---- imagem de fundo ---- */
+    --bg-image: url("../imagens/stranger-things-3840x2160-18568.jpg");
+}
+
+
+/* =========================================================
+   02. RESET & BASE
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    background-color: var(--dark-void);
+    background-image:
+        radial-gradient(
+            ellipse 80% 60% at 50% 0%,
+            rgba(179, 0, 0, 0.16),
+            transparent 60%
+        ),
+        linear-gradient(180deg, #07080b 0%, var(--dark-void) 45%, #04050700 100%),
+        linear-gradient(180deg, var(--dark-void), var(--upside-down-blue));
+
+    color: var(--text-light);
+
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    overflow-x: hidden;
+}
+
+/* barra de rolagem discreta */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--blood-red) #0a0a0c;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--blood-red), var(--dark-red));
+    border-radius: var(--r-pill);
+    border: 2px solid #0a0a0c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-red);
+}
+
+::selection {
+    background: var(--neon-red);
+    color: #ffffff;
+    text-shadow: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--neon-red);
+    outline-offset: 3px;
+    border-radius: var(--r-xs);
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--r-sm);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================================
+   03. FUNDOS EM CAMADAS
+   ========================================================= */
+
+/* imagem de fundo fixa (layer 1) */
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+    opacity: 0.42;
+    filter: saturate(0.85) contrast(1.05);
+
+    pointer-events: none;
+}
+
+/* vinheta + scanlines + grão (layer 2, acima do conteúdo) */
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(
+            ellipse 100% 100% at 50% 45%,
+            transparent 35%,
+            rgba(0, 0, 0, 0.55) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.5),
+            transparent 18%,
+            transparent 82%,
+            rgba(0, 0, 0, 0.55)
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.22) 0 1px,
+            transparent 1px 3px
+        ),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.5'/></svg>");
+
+    background-size: cover, auto, auto, 160px 160px;
+
+    opacity: 0.9;
+}
+
+/* qualquer conteúdo real fica acima do fundo */
+header,
+main,
+footer,
+body > h1,
+body > h2,
+body > h3,
+body > form,
+body > p,
+body > a,
+body > div,
+body > hr {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   04. TIPOGRAFIA
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #ffffff;
+    text-wrap: balance;
+}
+
+p {
+    color: var(--text-gray);
+    text-wrap: pretty;
+}
+
+a {
+    color: var(--neon-red);
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease);
+}
+
+a:hover {
+    color: #ff5a5a;
+}
+
+strong,
+b {
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+code,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+code {
+    background: var(--surface-1);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-xs);
+    padding: 2px 6px;
+    color: #ffb3b3;
+}
+
+pre {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-sm);
+    padding: var(--sp-4);
+    overflow-x: auto;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    margin: var(--sp-5) 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--border-mid),
+        transparent
+    );
+}
+
+ul,
+ol {
+    padding-left: var(--sp-5);
+    color: var(--text-gray);
+}
+
+li + li {
+    margin-top: var(--sp-2);
+}
+
+
+/* =========================================================
+   05. LAYOUT / SHELL
+   ========================================================= */
+
+.container,
+header,
+main,
+footer {
+    width: min(var(--container), 94%);
+    margin-inline: auto;
+}
+
+main {
+    padding-block: var(--sp-7) var(--sp-8);
+    min-height: 60vh;
+}
+
+.content-wrapper {
+    width: min(var(--container-narrow), 100%);
+    margin: var(--sp-7) auto;
+    padding-inline: var(--sp-4);
+}
+
+.stack > * + * {
+    margin-top: var(--sp-4);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-3);
+}
+
+.row--center {
+    justify-content: center;
+}
+
+
+/* =========================================================
+   06. CABEÇALHO E NAVEGAÇÃO
+   ========================================================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    margin-top: var(--sp-4);
+    padding: var(--sp-5) clamp(var(--sp-4), 4vw, var(--sp-6));
+
+    background: var(--panel-bg-strong);
+
+    border: 1px solid var(--border-red);
+    border-radius: var(--r-md);
+
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+
+    box-shadow: var(--shadow-md), 0 0 40px rgba(255, 0, 0, 0.10);
+
+    text-align: center;
+}
+
+/* linha de brilho superior */
+header::before {
+    content: "";
+
+    position: absolute;
+    inset-inline: 12%;
+    top: -1px;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--neon-red),
+        transparent
+    );
+
+    opacity: 0.8;
+}
+
+header h1,
+header .logo {
+    font-size: clamp(1.5rem, 3.6vw, 2.35rem);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: var(--text-glow);
+    background: linear-gradient(180deg, #ffffff 30%, #ffd9d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--sp-4);
+}
+
+/* ---- navegação ---- */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+}
+
+nav > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+
+    padding-right: var(--sp-4);
+    border-right: 1px solid var(--border-dark);
+}
+
+/* caminhos principais */
+nav > div a {
+    display: inline-block;
+    padding: 9px 16px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255, 26, 26, 0.92),
+        rgba(179, 0, 0, 0.92)
+    );
+
+    border: 1px solid rgba(255, 120, 120, 0.45);
+    border-radius: var(--r-pill);
+
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    box-shadow: 0 4px 14px rgba(255, 0, 0, 0.22);
+
+    transition:
+        transform var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease),
+        filter var(--t-base) var(--ease);
+}
+
+nav > div a:hover,
+nav > div a:focus-visible {
+    color: #ffffff;
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: var(--glow-strong), 0 6px 18px rgba(255, 0, 0, 0.32);
+}
+
+nav > div a:active {
+    transform: translateY(0);
+}
+
+/* botões de sessão (Entrar / Sair) */
+nav > a {
+    display: inline-block;
+    padding: 9px 16px;
+
+    color: var(--text-light);
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid var(--border-mid);
+    border-radius: var(--r-pill);
+
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+}
+
+nav > a:hover {
+    color: #ffffff;
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+/* "Sair" recebe o tratamento de ação destrutiva */
+nav > a[href$="logout.php"] {
+    color: #ffc9c9;
+    border-color: rgba(255, 60, 60, 0.45);
+    background: rgba(179, 0, 0, 0.18);
+}
+
+nav > a[href$="logout.php"]:hover {
+    background: var(--neon-red);
+    border-color: var(--neon-red);
+    color: #ffffff;
+    box-shadow: var(--glow-strong);
+}
+
+/* botão de saída legado (mantido por compatibilidade) */
+.botao-sair {
+    display: inline-block;
+    padding: 9px 16px;
+
+    color: #ffffff;
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--r-pill);
+
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+}
+
+.botao-sair:hover {
+    background: var(--neon-red);
+    border-color: var(--neon-red);
+    box-shadow: var(--glow-strong);
+}
+
+
+/* =========================================================
+   07. HERO E TÍTULOS
+   ========================================================= */
+
+.hero {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-3);
+
+    text-align: center;
+    padding: var(--sp-8) var(--sp-4);
+}
+
+.st-logo {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: transparent;
+
+    -webkit-text-stroke: 2px var(--blood-red);
+
+    text-shadow:
+        0 0 10px rgba(255, 0, 0, 0.75),
+        0 0 26px rgba(255, 0, 0, 0.55),
+        0 0 55px rgba(179, 0, 0, 0.4);
+}
+
+.subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-4);
+    width: min(760px, 100%);
+
+    color: #dddddd;
+    font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+.subtitle::before,
+.subtitle::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-red));
+}
+
+.subtitle::after {
+    background: linear-gradient(90deg, var(--border-red), transparent);
+}
+
+/* título principal da página (fora de <main>) */
+body > h1,
+main > h1 {
+    margin: clamp(var(--sp-7), 9vh, 110px) auto var(--sp-3);
+    padding-inline: var(--sp-4);
+
+    font-size: var(--fs-h1);
+    letter-spacing: 1.5px;
+    text-align: center;
+
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.45), 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+body > h2,
+main > h2 {
+    margin: var(--sp-2) auto var(--sp-3);
+    padding-inline: var(--sp-4);
+
+    font-size: var(--fs-h2);
+    letter-spacing: 1px;
+    text-align: center;
+    color: #f0e8e8;
+
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+}
+
+body > h3,
+main > h3 {
+    max-width: 62ch;
+    margin: 0 auto var(--sp-6);
+    padding-inline: var(--sp-4);
+
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 2px;
+    text-align: center;
+    color: var(--text-dim);
+}
+
+body > h4,
+body > h5,
+body > h6,
+main h4,
+main h5,
+main h6 {
+    font-size: var(--fs-h3);
+    margin: var(--sp-5) 0 var(--sp-2);
+}
+
+
+/* =========================================================
+   08. CARTÕES E PAINÉIS
+   ========================================================= */
+
+.card,
+.panel {
+    position: relative;
+    overflow: hidden;
+
+    padding: clamp(var(--sp-5), 4vw, var(--sp-6));
+
+    background: var(--panel-bg);
+
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-md);
+
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+
+    box-shadow: var(--shadow-md);
+
+    transition:
+        transform var(--t-base) var(--ease-out),
+        border-color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+}
+
+/* filete vermelho lateral */
+.card::before,
+.panel::before {
+    content: "";
+
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 3px;
+
+    background: linear-gradient(180deg, var(--neon-red), var(--dark-red));
+    opacity: 0.85;
+}
+
+.card:hover,
+.panel:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-red);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(210, 0, 0, 0.16);
+}
+
+.card h2,
+.panel h2 {
+    font-size: var(--fs-h2);
+    letter-spacing: 1px;
+    margin-bottom: var(--sp-3);
+}
+
+.card h3,
+.panel h3 {
+    font-size: var(--fs-h3);
+    margin-bottom: var(--sp-2);
+}
+
+.card p,
+.panel p {
+    color: #cccccc;
+    line-height: 1.75;
+    margin-bottom: var(--sp-5);
+}
+
+.card p:last-child,
+.panel p:last-child {
+    margin-bottom: 0;
+}
+
+/* grade de cartões */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--sp-4);
+    margin-block: var(--sp-6);
+}
+
+.card-grid .card {
+    text-align: center;
+}
+
+/* imagem do produto no card */
+.card .produto-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    margin-bottom: var(--sp-3);
+    border: 1px solid var(--border-dark);
+    background: rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   09. BOTÕES
+   ========================================================= */
+
+.neon-btn,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+
+    padding: 12px 26px;
+
+    background: transparent;
+    color: var(--neon-red);
+
+    border: 1px solid var(--neon-red);
+    border-radius: var(--r-xs);
+
+    font-family: inherit;
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background var(--t-base) var(--ease),
+        color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease),
+        transform var(--t-base) var(--ease);
+}
+
+.neon-btn:hover,
+.btn:hover,
+.neon-btn:focus-visible,
+.btn:focus-visible {
+    background: var(--neon-red);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: var(--glow-strong);
+}
+
+.neon-btn:active,
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled,
+.neon-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn--solid {
+    background: linear-gradient(180deg, var(--neon-red), var(--blood-red));
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.btn--ghost {
+    background: var(--surface-1);
+    color: var(--text-light);
+    border-color: var(--border-mid);
+}
+
+.btn--ghost:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn--danger {
+    color: #ffc9c9;
+    border-color: rgba(255, 60, 60, 0.5);
+    background: rgba(179, 0, 0, 0.16);
+}
+
+.btn--danger:hover {
+    background: var(--dark-red);
+    border-color: var(--neon-red);
+    box-shadow: var(--glow-strong);
+}
+
+.btn--sm {
+    padding: 8px 16px;
+    font-size: var(--fs-micro);
+}
+
+
+/* =========================================================
+   10. FORMULÁRIOS
+   ========================================================= */
+
+/* o formulário funciona como painel centralizado */
+form {
+    width: min(var(--form-width), 100%);
+    margin: var(--sp-6) auto;
+
+    padding: clamp(var(--sp-5), 4vw, var(--sp-6));
+
+    background: var(--panel-bg);
+
+    border: 1px solid var(--border-dark);
+    border-top: 2px solid var(--blood-red);
+    border-radius: var(--r-md);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: var(--shadow-md);
+}
+
+/* <br> legados deixam de criar linhas vazias (o gap do grid cuida) */
+form br {
+    display: none;
+}
+
+/* rótulos */
+form label {
+    display: block;
+    margin-top: var(--sp-4);
+
+    color: var(--text-dim);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+form label:first-of-type {
+    margin-top: 0;
+}
+
+/* campos */
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]):not([type="button"]),
+textarea,
+select {
+    display: block;
+    width: 100%;
+    margin-top: var(--sp-2);
+    padding: 13px 15px;
+
+    background: rgba(5, 5, 5, 0.75);
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--r-xs);
+
+    font-family: inherit;
+    font-size: var(--fs-small);
+
+    outline: none;
+
+    transition:
+        border-color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease),
+        background var(--t-base) var(--ease);
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #0b0b0e;
+    color: #ffffff;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]):not([type="button"]):hover,
+textarea:hover,
+select:hover {
+    border-color: var(--border-mid);
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]):not([type="button"]):focus,
+textarea:focus,
+select:focus {
+    border-color: var(--neon-red);
+    background: rgba(10, 5, 5, 0.85);
+    box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.16), 0 0 16px rgba(255, 26, 26, 0.22);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #6b6b73;
+}
+
+/* campo inválido (validação nativa) */
+input:user-invalid,
+textarea:user-invalid {
+    border-color: #ff5a5a;
+}
+
+/* ---- radio / checkbox ---- */
+input[type="radio"],
+input[type="checkbox"] {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0 var(--sp-1) 0 0;
+
+    accent-color: var(--neon-red);
+
+    cursor: pointer;
+    vertical-align: -3px;
+
+    transition: transform var(--t-fast) var(--ease);
+}
+
+input[type="radio"]:hover,
+input[type="checkbox"]:hover {
+    transform: scale(1.12);
+}
+
+/* rótulo que vem logo após o radio = "pílula" selecionável */
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 0;
+    margin-right: var(--sp-2);
+
+    padding: 7px 14px;
+
+    background: var(--surface-1);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-pill);
+
+    color: var(--text-gray);
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+}
+
+input[type="radio"] + label:hover,
+input[type="checkbox"] + label:hover {
+    background: var(--surface-2);
+    color: var(--text-light);
+}
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+    background: rgba(255, 26, 26, 0.16);
+    border-color: var(--neon-red);
+    color: #ffffff;
+    box-shadow: var(--glow-soft);
+}
+
+/* ---- botões de envio ---- */
+form input[type="submit"],
+form input[type="reset"],
+form input[type="button"],
+form button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: var(--sp-5);
+    margin-right: var(--sp-2);
+
+    padding: 12px 26px;
+
+    color: #ffffff;
+
+    background: linear-gradient(180deg, var(--neon-red), var(--blood-red));
+    border: 1px solid rgba(255, 120, 120, 0.45);
+    border-radius: var(--r-xs);
+
+    font-family: inherit;
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 18px rgba(255, 0, 0, 0.26);
+
+    transition:
+        transform var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease),
+        filter var(--t-base) var(--ease);
+}
+
+form input[type="submit"]:hover,
+form button:hover,
+form input[type="submit"]:focus-visible,
+form button:focus-visible {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: var(--glow-strong), 0 8px 22px rgba(255, 0, 0, 0.32);
+}
+
+form input[type="submit"]:active,
+form button:active {
+    transform: translateY(0);
+}
+
+form input[type="reset"] {
+    background: var(--surface-1);
+    border-color: var(--border-mid);
+    color: var(--text-gray);
+    box-shadow: none;
+}
+
+form input[type="reset"]:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    color: var(--text-light);
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   11. TABELAS E REGISTROS
+   ========================================================= */
+
+.record-list {
+    width: min(760px, 100%);
+    margin: var(--sp-5) auto;
+    padding: clamp(var(--sp-4), 3vw, var(--sp-6));
+
+    background: var(--panel-bg);
+
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-md);
+
+    box-shadow: var(--shadow-md);
+
+    font-size: var(--fs-small);
+    line-height: 2.1;
+    letter-spacing: 0.6px;
+    color: var(--text-gray);
+    text-align: center;
+}
+
+.record-list hr {
+    margin: var(--sp-4) 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 26, 26, 0.35),
+        transparent
+    );
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-md);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-small);
+    background: var(--panel-bg);
+}
+
+thead th {
+    padding: var(--sp-3) var(--sp-4);
+
+    background: rgba(179, 0, 0, 0.22);
+    color: #ffffff;
+    border-bottom: 1px solid var(--border-red);
+
+    font-size: var(--fs-micro);
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+tbody td {
+    padding: var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--border-dark);
+    color: var(--text-gray);
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+tbody tr {
+    transition: background var(--t-fast) var(--ease);
+}
+
+tbody tr:hover {
+    background: var(--surface-1);
+}
+
+
+/* =========================================================
+   12. RODAPÉ
+   ========================================================= */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-5);
+
+    margin: var(--sp-6) auto var(--sp-5);
+    padding: var(--sp-5) clamp(var(--sp-4), 4vw, var(--sp-6));
+
+    background: var(--panel-bg);
+
+    border: 1px solid var(--border-red);
+    border-radius: var(--r-md);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: var(--shadow-md);
+
+    text-align: center;
+}
+
+footer h3 {
+    width: 100%;
+    color: #ffffff;
+    font-size: var(--fs-h3);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+}
+
+footer p {
+    color: var(--text-dim);
+    font-size: var(--fs-micro);
+    letter-spacing: 1px;
+}
+
+footer p + p {
+    padding-left: var(--sp-5);
+    border-left: 1px solid var(--border-dark);
+}
+
+footer a {
+    color: #dddddd;
+}
+
+footer a:hover {
+    color: var(--neon-red);
+    text-shadow: 0 0 10px rgba(255, 26, 26, 0.6);
+}
+
+
+/* =========================================================
+   13. ANIMAÇÕES
+   ========================================================= */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 6px rgba(255, 0, 0, 0.6), 0 0 18px rgba(255, 0, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 12px rgba(255, 0, 0, 0.85), 0 0 32px rgba(255, 0, 0, 0.55);
+    }
+}
+
+@keyframes flicker {
+
+    0%,
+    18%,
+    20%,
+    22%,
+    60%,
+    100% {
+        opacity: 1;
+        text-shadow:
+            0 0 6px rgba(255, 0, 0, 0.85),
+            0 0 18px rgba(255, 0, 0, 0.6),
+            0 0 35px rgba(255, 0, 0, 0.35);
+    }
+
+    19%,
+    21%,
+    59% {
+        opacity: 0.75;
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+    }
+}
+
+.flicker-fast {
+    animation: flicker 3s infinite alternate;
+}
+
+.flicker-slow {
+    animation: flicker 5s infinite alternate-reverse;
+}
+
+.pulse {
+    animation: pulseGlow 2.4s var(--ease) infinite;
+}
+
+/* entrada suave, em cascata */
+header,
+body > h1,
+body > h2,
+body > h3,
+body > form,
+body > p,
+body > a,
+body > div,
+main > *,
+.hero,
+.card,
+.panel,
+.content-wrapper,
+footer {
+    animation: fadeUp 0.7s var(--ease-out) both;
+}
+
+body > h2 { animation-delay: 0.08s; }
+body > h3,
+main > *:nth-child(2) { animation-delay: 0.14s; }
+main > *:nth-child(3) { animation-delay: 0.2s; }
+main > *:nth-child(4) { animation-delay: 0.26s; }
+footer { animation-delay: 0.12s; }
+
+
+/* =========================================================
+   14. UTILITÁRIOS
+   ========================================================= */
+
+/* mensagens de retorno do PHP */
+body > p,
+main > p,
+form + p {
+    width: min(var(--form-width), 100%);
+    margin: var(--sp-4) auto;
+    padding: var(--sp-3) var(--sp-4);
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-mid);
+    border-left: 3px solid var(--neon-red);
+    border-radius: var(--r-xs);
+
+    color: var(--text-light);
+    font-size: var(--fs-small);
+    letter-spacing: 0.6px;
+    text-align: center;
+}
+
+/* link solto no corpo da página vira botão de ação */
+body > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    margin: var(--sp-5) auto var(--sp-2);
+
+    padding: 11px 24px;
+
+    background: var(--surface-1);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--r-xs);
+
+    color: var(--text-light);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition:
+        background var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        color var(--t-base) var(--ease),
+        transform var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+}
+
+body > a:hover {
+    background: rgba(255, 26, 26, 0.18);
+    border-color: var(--border-red);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: var(--glow-strong);
+}
+
+.alert {
+    padding: var(--sp-3) var(--sp-4);
+    border: 1px solid var(--border-mid);
+    border-left: 3px solid var(--neon-red);
+    border-radius: var(--r-xs);
+    background: rgba(255, 255, 255, 0.04);
+    font-size: var(--fs-small);
+}
+
+.alert--success {
+    border-left-color: #22c55e;
+    color: #bbf7d0;
+}
+
+.alert--error {
+    border-left-color: var(--neon-red);
+    color: #fecaca;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+
+    background: rgba(255, 26, 26, 0.16);
+    border: 1px solid var(--border-red);
+    border-radius: var(--r-pill);
+
+    color: #ffffff;
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.eyebrow {
+    color: var(--text-dim);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.muted {
+    color: var(--text-dim);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.divider {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--border-red), transparent);
+}
+
+.mt-0 { margin-top: 0 !important; }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-6 { margin-top: var(--sp-6); }
+.mb-4 { margin-bottom: var(--sp-4); }
+.mb-6 { margin-bottom: var(--sp-6); }
+
+.hide {
+    display: none !important;
+}
+
+
+/* =========================================================
+   15. RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    body > h1,
+    main > h1 {
+        margin-top: var(--sp-7);
+    }
+
+    form {
+        padding: var(--sp-5);
+    }
+}
+
+@media (max-width: 760px) {
+
+    header {
+        position: relative;
+        top: 0;
+        padding: var(--sp-4);
+    }
+
+    nav {
+        gap: var(--sp-3);
+    }
+
+    nav > div {
+        width: 100%;
+        padding-right: 0;
+        padding-bottom: var(--sp-3);
+        border-right: 0;
+        border-bottom: 1px solid var(--border-dark);
+    }
+
+    nav > div a {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    nav > a {
+        flex: 1 1 120px;
+        text-align: center;
+    }
+
+    .hero {
+        min-height: 58vh;
+        padding: var(--sp-7) var(--sp-3);
+    }
+
+    .card,
+    .panel {
+        padding: var(--sp-5) var(--sp-4);
+    }
+
+    .record-list {
+        padding: var(--sp-4);
+        letter-spacing: 0;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: var(--sp-2);
+    }
+
+    footer p + p {
+        padding-left: 0;
+        border-left: 0;
+    }
+}
+
+@media (max-width: 520px) {
+
+    header h1,
+    header .logo {
+        font-size: 1.35rem;
+        letter-spacing: 2px;
+    }
+
+    nav > div {
+        flex-direction: column;
+    }
+
+    nav > div a,
+    nav > a {
+        width: 100%;
+    }
+
+    .st-logo {
+        font-size: 2.6rem;
+        letter-spacing: 3px;
+        -webkit-text-stroke-width: 1.5px;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
+    form {
+        margin-block: var(--sp-5);
+        padding: var(--sp-4);
+        border-radius: var(--r-sm);
+    }
+
+    form input[type="submit"],
+    form input[type="reset"],
+    form button {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .neon-btn,
+    .btn {
+        width: 100%;
+    }
+
+    body > h1,
+    main > h1 {
+        font-size: 1.75rem;
+    }
+}
+
+
+/* =========================================================
+   16. ACESSIBILIDADE E IMPRESSÃO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-contrast: more) {
+
+    :root {
+        --border-dark: rgba(255, 255, 255, 0.35);
+        --border-mid: rgba(255, 255, 255, 0.5);
+        --text-gray: #e6e6e6;
+        --text-dim: #cccccc;
+    }
+}
+
+@media print {
+
+    body::before,
+    body::after {
+        display: none;
+    }
+
+    body {
+        background: #ffffff;
+        color: #000000;
+    }
+
+    header,
+    footer,
+    form input[type="submit"],
+    form input[type="reset"] {
+        display: none !important;
+    }
+}
